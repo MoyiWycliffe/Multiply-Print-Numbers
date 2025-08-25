@@ -2,88 +2,137 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Range Multiplication Calculator</title>
 <style>
   body {
-    font-family: Arial, sans-serif;
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    background: #f0f0f5;
-    border-radius: 8px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f2f5;
+    margin: 0;
+    padding: 0;
   }
-  input[type="number"] {
-    width: 100px;
-    padding: 5px;
-    margin: 5px 10px 20px 0;
-  }
-    .container {
-    text-align: center;
+
+  .container {
+    max-width: 450px;
+    margin: 60px auto;
+    padding: 30px;
     background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    text-align: center;
   }
-  button {
-    padding: 7px 15px;
+
+  h2 {
+    color: #1f2937;
+    margin-bottom: 25px;
+  }
+
+  label {
+    display: block;
+    font-weight: bold;
+    margin: 10px 0 5px;
+    text-align: left;
+  }
+
+  input[type="number"] {
+    width: 100%;
+    padding: 10px;
     font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
   }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+
+  button#calculate {
+    background-color: #10b981;
+    color: white;
+  }
+
+  button#calculate:hover {
+    background-color: #059669;
+  }
+
+  button#clear {
+    background-color: #ef4444;
+    color: white;
+  }
+
+  button#clear:hover {
+    background-color: #dc2626;
+  }
+
   #output {
     margin-top: 20px;
-    white-space: pre-wrap;
-    background: white;
+    background: #ecfdf5;
+    color: #065f46;
     padding: 15px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-weight: bold;
     min-height: 80px;
+    word-wrap: break-word;
+  }
+
+  @media(max-width: 500px) {
+    .container {
+      margin: 20px;
+      padding: 20px;
+    }
+    button, input {
+      font-size: 14px;
+      padding: 10px;
+    }
   }
 </style>
 </head>
 <body>
+
 <div class="container">
-<h2>Print Numbers and Multiplication Result</h2>
+  <h2>Range Multiplication Calculator</h2>
 
-<label for="startNum">Start:</label>
-<input type="number" id="startNum" />
-<br />
+  <label for="startNum">Start:</label>
+  <input type="number" id="startNum" placeholder="Enter start number" />
 
-<label for="endNum">End:</label>
-<input type="number" id="endNum" />
-<br />
+  <label for="endNum">End:</label>
+  <input type="number" id="endNum" placeholder="Enter end number" />
 
-<button onclick="printMultiplication()">Print Multiplication & Numbers</button>
-<button onclick="document.getElementById('output').textContent = ''">Clear</button>
+  <button id="calculate" onclick="printMultiplication()">Calculate Product</button>
+  <button id="clear" onclick="document.getElementById('output').textContent = ''">Clear</button>
 
-<div id="output"></div>
+  <div id="output"></div>
+</div>
 
 <script>
-  function printMultiplication() {
-    const start = parseInt(document.getElementById('startNum').value);
-    const end = parseInt(document.getElementById('endNum').value);
-    const outputDiv = document.getElementById('output');
+function printMultiplication() {
+  const start = parseInt(document.getElementById('startNum').value);
+  const end = parseInt(document.getElementById('endNum').value);
+  const outputDiv = document.getElementById('output');
 
-    if (isNaN(start) || isNaN(end)) {
-      outputDiv.textContent = "Please enter valid numbers.";
-      return;
-    }
-
-    if (end < start) {
-    outputDiv.textContent = "End number must be greater than or equal to Start number.";
+  if (isNaN(start) || isNaN(end)) {
+    outputDiv.textContent = "⚠️ Please enter valid numbers.";
     return;
-    }
-
-    let result = " ";
-    /*for (let i = start; i <= end; i++) {
-      result += i + " ";
-    } */
-
-    const product = start * end;
-    result += `\n\nThe product of ${start} and ${end} is: ${product}`;
-
-    outputDiv.textContent = result;
   }
+
+  if (end < start) {
+    outputDiv.textContent = "⚠️ End number must be greater than or equal to Start number.";
+    return;
+  }
+
+  const product = start * end;
+  outputDiv.innerHTML = `🔢 Numbers: ${start} and ${end}<br/>✖️ Product: <strong>${product}</strong>`;
+}
 </script>
-</div>
+
 </body>
 </html>
